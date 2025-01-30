@@ -160,6 +160,12 @@ public class RegistroNuevoPereController implements Initializable{
 						}					
 					}	
 					if(!mal) nomCorrecto=true;
+					else {
+						Alert mensaje = new Alert(Alert.AlertType.WARNING);
+						mensaje.setTitle("NOMBRE INVALIDO");
+						mensaje.setContentText("EL NOMBRE DEL PEREGRINO NO PUEDE CONTENER NINGUN CARACTER NO ALFABETICO O NUMEROS");
+						mensaje.showAndWait();
+					}
 				}
 				
 				
@@ -177,6 +183,12 @@ public class RegistroNuevoPereController implements Initializable{
 						}
 					}
 					if(!mal) nomUsuCorrecto=true;
+					else {
+						Alert mensaje = new Alert(Alert.AlertType.WARNING);
+						mensaje.setTitle("NOMBRE DE USUARIO INVALIDO");
+						mensaje.setContentText("EL NOMBRE DE USUARIO NO PUEDE CONTENER ESPACIOS");
+						mensaje.showAndWait();
+					}
 				}
 				
 				

@@ -50,7 +50,7 @@
                                     <Insets bottom="15.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Button fx:id="btnCerrarSesion" mnemonicParsing="false" onAction="#clickBtnCerrarSesion" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="CERRAR SESION" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                              <Button fx:id="btnCerrarSesion" onAction="#clickBtnCerrarSesion" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="_CERRAR SESION" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -139,7 +139,7 @@
                                     <Insets top="30.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#clickBtnSellar" style="-fx-background-color: #4ACD6C; -fx-border-color: #018825; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="SELLAR PEREGRINO" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                              <Button fx:id="btnRegistrarse" onAction="#clickBtnSellar" style="-fx-background-color: #4ACD6C; -fx-border-color: #018825; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="_SELLAR PEREGRINO" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -151,7 +151,7 @@
                                  </font>
                               </Label>
                               <DatePicker fx:id="fechaMayor" editable="false" layoutX="35.0" layoutY="135.0" maxWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <Button fx:id="btnFiltrar" layoutX="150.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickBtnFiltrar" style="-fx-background-color: #4ACD6C; -fx-border-color: #018825; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="FILTRAR" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Button fx:id="btnFiltrar" layoutX="150.0" layoutY="360.0" onAction="#clickBtnFiltrar" style="-fx-background-color: #4ACD6C; -fx-border-color: #018825; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="_FILTRAR" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

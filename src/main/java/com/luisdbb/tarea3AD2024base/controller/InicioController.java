@@ -10,15 +10,16 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.services.CredencialesService;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
 
 @Controller
 public class InicioController implements Initializable{
@@ -30,13 +31,22 @@ public class InicioController implements Initializable{
 	private TextField contrasenia;
 	
 	@FXML
+	private PasswordField pswContrasenia;
+	
+	@FXML
 	private Button btnAcceder;
 	
 	@FXML
 	private Button btnRegistrarse;
 	
+	@FXML
+	private Button btnContraVisible;
+	
 	@Autowired
 	private CredencialesService credenService;
+	
+	@Autowired
+	private ParadaService paradaService;
 	
 	@Lazy
 	@Autowired
@@ -50,7 +60,40 @@ public class InicioController implements Initializable{
 	
 	@FXML
 	public void clickBtnRegistro(ActionEvent event) throws IOException{
+		if(paradaService.findAll().size()==0) {
+			
+			Alert mensa = new Alert(Alert.AlertType.WARNING);
+			mensa.setTitle("IMPOSIBLE REGISTRAR");
+			mensa.setContentText("EN ESTE MOMENTO NO ES POSIBLE REGISTRAR UN PEREGRINO YA QUE NO HAY PARADAS DISPONIBLES");
+			mensa.showAndWait();
+			
+		}
+		
+		else
 		stageManager.switchScene(FxmlView.NUEVOPERE);
+	}
+	
+	@FXML
+	public void hacerVisibleContrasenia(ActionEvent event) throws IOException{
+		if(!contrasenia.isVisible()) {
+			
+			contrasenia.setVisible(true);
+			contrasenia.setDisable(false);
+			contrasenia.setText(pswContrasenia.getText());
+			pswContrasenia.setVisible(false);
+			pswContrasenia.setDisable(true);
+			
+		}else {
+			
+			contrasenia.setVisible(false);
+			pswContrasenia.setText(contrasenia.getText());
+			contrasenia.setDisable(true);
+			pswContrasenia.setVisible(true);
+			pswContrasenia.setDisable(false);
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -61,6 +104,13 @@ public class InicioController implements Initializable{
 
 	@FXML
 	public void clickBtnAcceder(ActionEvent event) throws IOException{
+		if(contrasenia.isVisible()) {
+			
+		}else {
+			contrasenia.setText(pswContrasenia.getText());
+		}
+		
+		
 		if(usuario.getText().equals(null) || contrasenia.getText().equals(null)) {
 			
 		}else {

@@ -41,7 +41,7 @@ public class Peregrino implements Serializable{
 	@OneToMany(mappedBy="peregrinoE",fetch=FetchType.EAGER)
 	public List<Estancias> estancias = new ArrayList<>();
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "peregrino_Id")
 	public List<PeregrinoParadas> perePara = new ArrayList<>();
 	

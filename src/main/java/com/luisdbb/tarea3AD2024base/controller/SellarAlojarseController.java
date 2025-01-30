@@ -3,7 +3,6 @@ package com.luisdbb.tarea3AD2024base.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -21,7 +20,6 @@ import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.services.CarnetService;
 import com.luisdbb.tarea3AD2024base.services.CredencialesService;
 import com.luisdbb.tarea3AD2024base.services.EstanciasService;
-import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -69,9 +67,6 @@ public class SellarAlojarseController implements Initializable{
 	private CredencialesService credenService;
 	
 	@Autowired
-	private ParadaService paradaService;
-	
-	@Autowired
 	private PeregrinoParadaService ppService;
 	
 	@Lazy
@@ -88,6 +83,7 @@ public class SellarAlojarseController implements Initializable{
 		for(Peregrino p: peres) {
 			cbPeregrino.getItems().add(p.getNombre());
 		}
+		
 		
 	}
 	
@@ -117,109 +113,124 @@ public class SellarAlojarseController implements Initializable{
 		
 		Credenciales c = credenService.findByNombre(Sesion.sesion.getUsuario());
 		
+		
+		
 		boolean pereCorrecto=false;
+		boolean noEstanciar=false;
 		
 		//validacion del peregrino
-		if(cbPeregrino.getValue()!=null) {
-			pereCorrecto=true;
-		}
+		if(cbPeregrino.getValue()!=null) pereCorrecto=true;
 		
-		
-		if(checkEstancia.isSelected()) {
+		if(noEstanciar) {
+			Alert mensaje = new Alert(Alert.AlertType.WARNING);
+			mensaje.setTitle("NO ES POSIBLE REALIZAR SELLADO");
+			mensaje.setContentText("EL PEREGRINO YA SELLÓ HOY EN ESTA PARADA, NO ES POSIBLE SELLAR DE NUEVO. \nVOLVIENDO AL MENU DE ADMIN");
+			mensaje.showAndWait();
 			
-			//SITUACION EN LA QUE SELLA Y ALOJA CON VIP
-			if(checkVip.isSelected()) {
-				Peregrino p = pereService.findByNombre(cbPeregrino.getValue());
-				PeregrinoParadas pp = new PeregrinoParadas(LocalDate.now());
-				Carnet carnet = p.getCarnet();
-				Estancias es = new Estancias(LocalDate.now(),true);
+			stageManager.switchScene(FxmlView.ADMINPARADA);
+		}
+		else {
+	
+		
+		if(pereCorrecto) {
+			
+			 
+			
+			if(checkEstancia.isSelected()) {
 				
-				es.setParadaE(c.getParada());
-				es.setPeregrinoE(p);
-				estanciaService.save(es);
-				
-				
-				List<PeregrinoParadas> Listpp = new ArrayList<>();
-				
-				pereService.actualizarEntidad(p);
-				
-				pp.setPeregrino(p);
-				pp.setParadas(c.getParada());			
-				Listpp.add(pp);
-				p.setPerePara(Listpp);
-				ppService.save(pp);
-				
-				carnet.setDistancia(carnet.getDistancia()+5);
-				carnet.setNvips(carnet.getNvips()+1);
-				carnetService.actualizarEntidad(carnet);
-				
-				Alert mensaje = new Alert(Alert.AlertType.WARNING);
-				mensaje.setTitle("PEREGRINO SELLADO");
-				mensaje.setContentText("EL PEREGRINO SE HA SELLADO CORRECTAMENTE");
-				mensaje.showAndWait();
-				
+				//SITUACION EN LA QUE SELLA Y ALOJA CON VIP
+				if(checkVip.isSelected()) {
+					Peregrino p = pereService.findByNombre(cbPeregrino.getValue());
+					PeregrinoParadas pp = new PeregrinoParadas(LocalDate.now());
+					Carnet carnet = p.getCarnet();
+					Estancias es = new Estancias(LocalDate.now(),true);
+					
+					es.setParadaE(c.getParada());
+					es.setPeregrinoE(p);
+					estanciaService.save(es);
+					
+					pp.setPeregrino(p);
+					pp.setParadas(c.getParada());			
+					ppService.save(pp);
+					
+					carnet.setDistancia(carnet.getDistancia()+5);
+					carnet.setNvips(carnet.getNvips()+1);
+					carnetService.actualizarEntidad(carnet);
+					
+					Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+					mensaje.setTitle("PEREGRINO SELLADO");
+					mensaje.setContentText("EL PEREGRINO SE HA SELLADO  Y ALOJADO VIP CORRECTAMENTE, VOLVIENDO AL MENU...");
+					mensaje.showAndWait();
+					
+					stageManager.switchScene(FxmlView.ADMINPARADA);
+					
+				}
+				//SITUACION EN LA QUE SE SELLA Y ALOJA SIN VIP
+				else {
+					Peregrino p = pereService.findByNombre(cbPeregrino.getValue());
+					PeregrinoParadas pp = new PeregrinoParadas(LocalDate.now());
+					Carnet carnet = p.getCarnet();
+					Estancias es = new Estancias(LocalDate.now(),false);
+					
+					es.setParadaE(c.getParada());
+					es.setPeregrinoE(p);
+					estanciaService.save(es);
+
+					
+					pp.setPeregrino(p);
+					pp.setParadas(c.getParada());			
+					ppService.save(pp);
+					
+					carnet.setDistancia(carnet.getDistancia()+5);
+					carnetService.actualizarEntidad(carnet);
+					
+					Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+					mensaje.setTitle("PEREGRINO SELLADO");
+					mensaje.setContentText("EL PEREGRINO SE HA SELLADO Y ALOJADON SIN VIP CORRECTAMENTE");
+					mensaje.showAndWait();
+					
+					stageManager.switchScene(FxmlView.ADMINPARADA);
+					
+				}
 				
 			}
-			//SITUACION EN LA QUE SE SELLA Y ALOJA SIN VIP
+			//SITUACION EN LA QUE SOLO SE SELLA AL PERE
 			else {
 				Peregrino p = pereService.findByNombre(cbPeregrino.getValue());
 				PeregrinoParadas pp = new PeregrinoParadas(LocalDate.now());
 				Carnet carnet = p.getCarnet();
-				Estancias es = new Estancias(LocalDate.now(),false);
-				
-				es.setParadaE(c.getParada());
-				es.setPeregrinoE(p);
-				estanciaService.save(es);
-				
-				
-				List<PeregrinoParadas> Listpp = new ArrayList<>();
-				
-				pereService.actualizarEntidad(p);
 				
 				pp.setPeregrino(p);
 				pp.setParadas(c.getParada());			
-				Listpp.add(pp);
-				p.setPerePara(Listpp);
 				ppService.save(pp);
+				
+				
 				
 				carnet.setDistancia(carnet.getDistancia()+5);
 				carnetService.actualizarEntidad(carnet);
 				
-				Alert mensaje = new Alert(Alert.AlertType.WARNING);
+				Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
 				mensaje.setTitle("PEREGRINO SELLADO");
 				mensaje.setContentText("EL PEREGRINO SE HA SELLADO CORRECTAMENTE");
 				mensaje.showAndWait();
 				
+				stageManager.switchScene(FxmlView.ADMINPARADA);
+				
 			}
 			
 		}
-		//SITUACION EN LA QUE SOLO SE SELLA AL PERE
+	
 		else {
-			Peregrino p = pereService.findByNombre(cbPeregrino.getValue());
-			PeregrinoParadas pp = new PeregrinoParadas(LocalDate.now());
-			Carnet carnet = p.getCarnet();
-			
-			List<PeregrinoParadas> Listpp = new ArrayList<>();
-			
-			pereService.actualizarEntidad(p);
-			
-			pp.setPeregrino(p);
-			pp.setParadas(c.getParada());			
-			Listpp.add(pp);
-			p.setPerePara(Listpp);
-			ppService.save(pp);
-			
-			
-			
-			carnet.setDistancia(carnet.getDistancia()+5);
-			carnetService.actualizarEntidad(carnet);
 			
 			Alert mensaje = new Alert(Alert.AlertType.WARNING);
-			mensaje.setTitle("PEREGRINO SELLADO");
-			mensaje.setContentText("EL PEREGRINO SE HA SELLADO CORRECTAMENTE");
+			mensaje.setTitle("PEREGRINO NO SELECCIONADO");
+			mensaje.setContentText("SELECCIONE UN PEREGRINO PARA SELLAR Y/O ALOJARSE");
 			mensaje.showAndWait();
 			
 		}
+		}
+		
+		
 	}
 
 

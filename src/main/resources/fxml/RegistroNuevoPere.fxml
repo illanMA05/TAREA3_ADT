@@ -102,12 +102,12 @@
                                     <Insets bottom="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Button fx:id="btnAceptar" mnemonicParsing="false" onAction="#clickBtnAceptar" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="ACEPTAR" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                              <Button fx:id="btnAceptar" onAction="#clickBtnAceptar" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="_ACEPTAR" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="443.0" layoutY="266.0" mnemonicParsing="false" onAction="#clickBtnVolver" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="VOLVER" GridPane.rowIndex="2">
+                              <Button layoutX="443.0" layoutY="266.0" onAction="#clickBtnVolver" style="-fx-border-color: #018825; -fx-border-width: 4px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="_VOLVER" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
