@@ -32,6 +32,11 @@ public class PeregrinoParadaService {
 		return ppRepository.findByFechaIsBetween(f1, f2);
 	}
 	
+	public List<PeregrinoParadas> findByFechaIsBetweenAndParadasEquals(LocalDate f1, LocalDate f2,Paradas p){
+		
+		return ppRepository.findByFechaIsBetweenAndParadasEquals(f1, f2,p);
+	}
+	
 	public PeregrinoParadas save(PeregrinoParadas entity) {
 		return ppRepository.save(entity);
 	}

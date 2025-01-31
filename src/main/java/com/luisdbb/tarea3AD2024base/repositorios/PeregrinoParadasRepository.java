@@ -15,6 +15,8 @@ public interface PeregrinoParadasRepository extends JpaRepository<PeregrinoParad
 	List <PeregrinoParadas> findByParadasEquals(Paradas p);
 	
 	List <PeregrinoParadas> findByFechaIsBetween(LocalDate fechaMe, LocalDate fechaMa);
+	
+	List <PeregrinoParadas> findByFechaIsBetweenAndParadasEquals(LocalDate fechaMe, LocalDate fechaMa,Paradas p);
 
 	List<PeregrinoParadas> findByPeregrinoEquals(Peregrino p);
 }

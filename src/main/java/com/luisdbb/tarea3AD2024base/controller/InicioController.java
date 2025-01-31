@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
@@ -51,6 +52,12 @@ public class InicioController implements Initializable{
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
+	
+	@Value("${admin.name}")
+	private String adminNombre;
+	
+	@Value("${admin.password}")
+	private String adminContra;
 	
 
 	@FXML
@@ -111,11 +118,17 @@ public class InicioController implements Initializable{
 		}
 		
 		
+		
 		if(usuario.getText().equals(null) || contrasenia.getText().equals(null)) {
 			
 		}else {
+			
+			if(usuario.getText().equals(adminNombre) && contrasenia.getText().equals(adminContra)) {
+				stageManager.switchScene(FxmlView.ADMIN);	
+			}
 		
-		if(credenService.CredencialesExisten(usuario.getText(), contrasenia.getText())) {
+		
+			else if(credenService.CredencialesExisten(usuario.getText(), contrasenia.getText())) {
 			
 			Sesion.sesion = new Sesion(usuario.getText());
 			
@@ -125,7 +138,7 @@ public class InicioController implements Initializable{
 				else if(credenService.perfilCredenciales(usuario.getText())==1) {
 					stageManager.switchScene(FxmlView.ADMINPARADA);
 				}
-				else stageManager.switchScene(FxmlView.ADMIN);		
+				 	
 			
 		}
 		

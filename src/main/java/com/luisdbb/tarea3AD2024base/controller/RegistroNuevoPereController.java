@@ -177,10 +177,15 @@ public class RegistroNuevoPereController implements Initializable{
 				}
 				else {
 					boolean mal= false;
+					if(nomUsu.equals("admin")) {
+						mal=true;
+					}
+					else {
 					for(int i=0; i<nomUsu.length();i++ ) {
 						if(Character.isWhitespace(nomUsu.charAt(i))) {
 							mal = true;
 						}
+					}
 					}
 					if(!mal) nomUsuCorrecto=true;
 					else {

@@ -123,6 +123,7 @@ public class AdminParadaController implements Initializable{
 	
 	@FXML
 	public void clickBtnFiltrar(ActionEvent event)throws IOException{
+		Paradas p =paradaService.findByResponsable(Sesion.sesion.getUsuario());
 		
 		if(fechaMenor.getValue()==null || fechaMayor.getValue()==null) {
 			Alert mensaje = new Alert(Alert.AlertType.WARNING);
@@ -135,7 +136,7 @@ public class AdminParadaController implements Initializable{
 				//meter en la tabla los campos con la validacion
 				peres.clear();
 				
-				for(PeregrinoParadas pere : ppService.findByFechaIsBetween(fechaMenor.getValue(), fechaMayor.getValue())) {
+				for(PeregrinoParadas pere : ppService.findByFechaIsBetweenAndParadasEquals(fechaMenor.getValue(), fechaMayor.getValue(),p)) {
 					Peregrino pe = pereService.findById(pere.getPeregrino().getIdP());
 					
 					peres.add(pe);

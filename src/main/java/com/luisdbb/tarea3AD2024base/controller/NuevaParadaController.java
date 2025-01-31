@@ -66,8 +66,13 @@ public class NuevaParadaController {
 		String nom= txtNombreParada.getText();
 		
 		//validacion del nombre
-				if(nom==null) {
+				if(nom==null || nom.length()==0) {
 					//poner algo para que envie mensaje al  usuario d q esta mal
+					
+					Alert mensaje = new Alert(Alert.AlertType.WARNING);
+					mensaje.setTitle("NOMBRE DE PARADA INVALIDO");
+					mensaje.setContentText("EL NOMBRE DE LA PARADA NO ES VALIDO");
+					mensaje.showAndWait();
 				}
 				else {
 					boolean mal=false;
@@ -83,29 +88,50 @@ public class NuevaParadaController {
 				
 			//validacion de la region de la parada
 				String region = txtRegion.getText();
-				if(region.equals(null) || region.length()>=2 || !Character.isAlphabetic(region.charAt(0))) {
-					
+				if(region.equals(null) || region.length()>=2 || region.length()==0 ||!Character.isAlphabetic(region.charAt(0))) {
+					Alert mensaje = new Alert(Alert.AlertType.WARNING);
+					mensaje.setTitle("REGION NO VALIDA");
+					mensaje.setContentText("LA REGION NO ES CORRECTA");
+					mensaje.showAndWait();
 				}else regionCorrecto=true;
 				
 			//validacion del nombre del responsable
 				String nomUsu = txtNombreResponsable.getText();
-				if(nomUsu==null) {
-				
+				if(nomUsu==null || nomUsu.length()==0) {
+				 
+					Alert mensaje = new Alert(Alert.AlertType.WARNING);
+					mensaje.setTitle("NOMBRE DE RESPONSABLE NO VALIDO");
+					mensaje.setContentText("EL NOMBRE DEL RESPONSABLE NO ES VALIDO");
+					mensaje.showAndWait();
+					}
+				{
+					boolean mal= false;
+					if(nomUsu.equals("admin")) {
+						mal=true;
 					}
 					else {
-						boolean mal= false;
-						for(int i=0; i<nomUsu.length();i++ ) {
-							if(Character.isWhitespace(nomUsu.charAt(i))) {
-								mal = true;
-							}
+					for(int i=0; i<nomUsu.length();i++ ) {
+						if(Character.isWhitespace(nomUsu.charAt(i))) {
+							mal = true;
 						}
-						if(!mal) nomResponCorrecto=true;
 					}
+					}
+					if(!mal) nomResponCorrecto=true;
+					else {
+						Alert mensaje = new Alert(Alert.AlertType.WARNING);
+						mensaje.setTitle("NOMBRE DE USUARIO INVALIDO");
+						mensaje.setContentText("EL NOMBRE DE USUARIO NO PUEDE CONTENER ESPACIOS");
+						mensaje.showAndWait();
+					}
+				}
 				
 		//validacion de la contraseña del responsable
 				String contra = txtContrasenia.getText();
-				if(contra==null) {
-								
+				if(contra==null || contra.length()==0) {
+					Alert mensaje = new Alert(Alert.AlertType.WARNING);
+					mensaje.setTitle("CONTRASEÑA NO VALIDA");
+					mensaje.setContentText("LA CONTRASEÑA NO ES VALIDA");
+					mensaje.showAndWait();
 				}
 				else {
 					boolean mal=false;

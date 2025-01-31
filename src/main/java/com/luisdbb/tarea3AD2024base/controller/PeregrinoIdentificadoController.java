@@ -103,6 +103,14 @@ public class PeregrinoIdentificadoController implements Initializable{
 
 	}
 	
+	@FXML
+	public void clickBtnEditar(ActionEvent event) {
+		Alert mensa = new Alert(Alert.AlertType.WARNING);
+		mensa.setTitle("FUNCION NO DISPONIBLE");
+		mensa.setContentText("ESTA FUNCION SERA IMPLEMENTADA A FUTURO");
+		mensa.showAndWait();
+	}
+	
 		@FXML
 		public void exportarCarnet(ActionEvent event)throws IOException {
 			
@@ -225,6 +233,11 @@ public class PeregrinoIdentificadoController implements Initializable{
 	        TransformerFactory fabricaTransformador= TransformerFactory.newInstance();
 	        Transformer transformador = fabricaTransformador.newTransformer();
 	        transformador.transform(fuente, resultado);
+	        
+	        Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+			mensaje.setTitle("CARNET EXPORTADO");
+			mensaje.setContentText("EL CARNET SE EXPORTO CORRECTAMENTE, PUEDE VERLO EN LA CARPETA src/main/resources");
+			mensaje.showAndWait();
 	        
 			}
 			catch (ParserConfigurationException ex) {
