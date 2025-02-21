@@ -93,7 +93,7 @@ public class Paises {
 			
 			 DocumentBuilderFactory fabricaConstructorDocumento = DocumentBuilderFactory.newInstance();
 	            DocumentBuilder constructorDocumento = fabricaConstructorDocumento.newDocumentBuilder();
-	           File fichero = new File (".\\src\\main\\resources\\paises.xml");
+	           File fichero = new File ("./src/main/resources/paises.xml");
 	           Document documento = constructorDocumento.parse(fichero);
 	           
 	           NodeList listaPaises, listaPais;

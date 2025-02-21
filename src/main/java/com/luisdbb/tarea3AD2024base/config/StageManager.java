@@ -40,7 +40,7 @@ public class StageManager {
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image(".\\images\\Logo.jpg"));
+        primaryStage.getIcons().add(new Image("./images/Logo.jpg"));
         primaryStage.sizeToScene();
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();

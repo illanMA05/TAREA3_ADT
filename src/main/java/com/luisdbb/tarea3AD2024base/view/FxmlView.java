@@ -38,6 +38,17 @@ public enum FxmlView {
 		}
 		
 	},
+	VERENVIOS{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("envios.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/VerEnviosRealizados.fxml";
+		}
+	},
 	ADMINPARADA{
 		@Override
 		public String getTitle() {
@@ -81,6 +92,28 @@ public enum FxmlView {
 		@Override
 		public String getFxmlFile() {
 			return "/fxml/SellarAlojarse.fxml";
+		}
+	},
+	NUEVOSERVICIO{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("nueServicio.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/NuevoServicio.fxml";
+		}
+	},
+	EDITARSERVICIO{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("editServicio.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/EditarServicio.fxml";
 		}
 	}
 	

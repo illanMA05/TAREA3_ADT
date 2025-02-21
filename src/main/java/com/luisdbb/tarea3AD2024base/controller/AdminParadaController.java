@@ -22,6 +22,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,6 +33,9 @@ import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 @Controller
 public class AdminParadaController implements Initializable{
@@ -44,7 +48,13 @@ public class AdminParadaController implements Initializable{
 	private Button btnSellarPeregrino;
 	
 	@FXML
+	private Button btnAyuda;
+	
+	@FXML
 	private Button btnFiltrar;
+	
+	@FXML
+	private Button btnEnvios;
 	
 	@FXML
 	private DatePicker fechaMenor;
@@ -65,16 +75,16 @@ public class AdminParadaController implements Initializable{
 	private TableView<Peregrino> tablaPeres;
 	
 	@FXML
-	private TableColumn clmNombre;
+	private TableColumn <String, String> clmNombre;
 	
 	@FXML
-	private TableColumn clmNomUsu;
+	private TableColumn <String, String>clmNomUsu;
 	
 	@FXML
-	private TableColumn clmNacionalidad;
+	private TableColumn<String, String>clmNacionalidad;
 	
 	@FXML
-	private TableColumn clmEmail;
+	private TableColumn <String, String>clmEmail;
 	
 	@Autowired
 	private ParadaService paradaService;
@@ -99,10 +109,10 @@ public class AdminParadaController implements Initializable{
 		
 		peres = FXCollections.observableArrayList();
 		
-		this.clmNombre.setCellValueFactory(new PropertyValueFactory("Nombre"));
-		this.clmNomUsu.setCellValueFactory(new PropertyValueFactory("NombreUsuario"));
-		this.clmNacionalidad.setCellValueFactory(new PropertyValueFactory("Nacionalidad"));
-		this.clmEmail.setCellValueFactory(new PropertyValueFactory("Email"));
+		this.clmNombre.setCellValueFactory(new PropertyValueFactory<String, String>("Nombre"));
+		this.clmNomUsu.setCellValueFactory(new PropertyValueFactory<String, String>("NombreUsuario"));
+		this.clmNacionalidad.setCellValueFactory(new PropertyValueFactory<String, String>("Nacionalidad"));
+		this.clmEmail.setCellValueFactory(new PropertyValueFactory<String, String>("Email"));
 		
 		lblResponsable.setText(Sesion.sesion.getUsuario());
 		
@@ -120,6 +130,24 @@ public class AdminParadaController implements Initializable{
 		
 	}
 	
+	@FXML
+	public void clickBtnAyuda(ActionEvent event) throws IOException{
+		WebView webView = new WebView();
+		
+		String url = getClass().getResource("/ayuda/help.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage = new Stage();
+		
+		Scene helpScene = new Scene ( webView, 663,408);
+		
+		helpStage.setScene(helpScene);
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(false);
+		helpStage.centerOnScreen();
+		
+		helpStage.show();
+	}
 	
 	@FXML
 	public void clickBtnFiltrar(ActionEvent event)throws IOException{
@@ -171,6 +199,11 @@ public class AdminParadaController implements Initializable{
 	@FXML
 	public void clickBtnSellar(ActionEvent event) throws IOException{
 		stageManager.switchScene(FxmlView.SELLAR);
+	}
+	
+	@FXML
+	public void clickBtnVerEnvios(ActionEvent event) throws IOException{
+		stageManager.switchScene(FxmlView.VERENVIOS);
 	}
 
 	

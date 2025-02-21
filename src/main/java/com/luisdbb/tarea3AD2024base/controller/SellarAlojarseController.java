@@ -27,17 +27,24 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 @Controller
 public class SellarAlojarseController implements Initializable{
 
 	@FXML
 	private Button btnVolver;
+	
+	@FXML
+	private Button btnAyuda;
 	
 	@FXML
 	private Button btnAceptar;
@@ -48,11 +55,17 @@ public class SellarAlojarseController implements Initializable{
 	@FXML 
 	private Label lblVip;
 	
+	@FXML 
+	private Label lblServicios;
+	
 	@FXML
 	private CheckBox checkEstancia;
 	
 	@FXML
 	private CheckBox checkVip;
+	
+	@FXML
+	private CheckBox checkServicios;
 	
 	@Autowired
 	private EstanciasService estanciaService;
@@ -88,6 +101,25 @@ public class SellarAlojarseController implements Initializable{
 	}
 	
 	@FXML
+	public void clickBtnAyuda(ActionEvent event) throws IOException{
+		WebView webView = new WebView();
+		
+		String url = getClass().getResource("/ayuda/help.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage = new Stage();
+		
+		Scene helpScene = new Scene ( webView, 663,408);
+		
+		helpStage.setScene(helpScene);
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(false);
+		helpStage.centerOnScreen();
+		
+		helpStage.show();
+	}
+	
+	@FXML
 	public void clickBtnVolver(ActionEvent event) throws IOException{
 		stageManager.switchScene(FxmlView.ADMINPARADA);
 	}
@@ -99,12 +131,16 @@ public class SellarAlojarseController implements Initializable{
 		if(checkEstancia.isSelected()) {
 			lblVip.setDisable(false);
 			checkVip.setDisable(false);
+			lblServicios.setDisable(false);
+			checkServicios.setDisable(false);
 			
 		}else {
 			checkVip.setSelected(false);
 			lblVip.setDisable(true);
 			checkVip.setDisable(true);
-			
+			lblServicios.setDisable(true);
+			checkServicios.setSelected(false);
+			checkServicios.setDisable(true);
 		}
 	}
 	

@@ -17,10 +17,14 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 @Controller
 public class InicioController implements Initializable{
@@ -30,6 +34,9 @@ public class InicioController implements Initializable{
 	
 	@FXML
 	private TextField contrasenia;
+	
+	@FXML
+	private Button btnAyuda;
 	
 	@FXML
 	private PasswordField pswContrasenia;
@@ -80,6 +87,28 @@ public class InicioController implements Initializable{
 		stageManager.switchScene(FxmlView.NUEVOPERE);
 	}
 	
+	
+	@FXML
+	public void clickBtnAyuda(ActionEvent event) throws IOException{
+		WebView webView = new WebView();
+		
+		String url = getClass().getResource("/ayuda/help.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage = new Stage();
+		
+		Scene helpScene = new Scene ( webView, 663,408);
+		
+		helpStage.setScene(helpScene);
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(false);
+		helpStage.centerOnScreen();
+		
+		
+		
+		helpStage.show();
+	}
+	
 	@FXML
 	public void hacerVisibleContrasenia(ActionEvent event) throws IOException{
 		if(!contrasenia.isVisible()) {
@@ -106,7 +135,6 @@ public class InicioController implements Initializable{
 	@Override
 	public void initialize(java.net.URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@FXML
