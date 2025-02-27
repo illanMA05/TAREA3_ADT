@@ -115,6 +115,39 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/EditarServicio.fxml";
 		}
+	},
+	EDITARSERVICIOSELECCIONADO{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("editServicio.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/EditarServicioSeleccionado.fxml";
+		}
+	},
+	SELECCIONARSERVICIOS{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("seleccionServicios.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/SeleccionServicios.fxml";
+		}
+	},
+	ENVIOACASA{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("envioACasa.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/EnvioACasa.fxml";
+		}
 	}
 	
 	

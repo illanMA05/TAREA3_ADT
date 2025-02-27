@@ -88,6 +88,8 @@ public class SellarAlojarseController implements Initializable{
 	
 	public List<Peregrino> peres;
 	
+	public static Estancias estancia;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -198,8 +200,8 @@ public class SellarAlojarseController implements Initializable{
 					mensaje.setContentText("EL PEREGRINO SE HA SELLADO  Y ALOJADO VIP CORRECTAMENTE, VOLVIENDO AL MENU...");
 					mensaje.showAndWait();
 					
-					stageManager.switchScene(FxmlView.ADMINPARADA);
 					
+					estancia = es;
 				}
 				//SITUACION EN LA QUE SE SELLA Y ALOJA SIN VIP
 				else {
@@ -225,8 +227,17 @@ public class SellarAlojarseController implements Initializable{
 					mensaje.setContentText("EL PEREGRINO SE HA SELLADO Y ALOJADON SIN VIP CORRECTAMENTE");
 					mensaje.showAndWait();
 					
-					stageManager.switchScene(FxmlView.ADMINPARADA);
 					
+					estancia = es;
+				}
+				
+				
+				if(checkServicios.isSelected()) {
+					stageManager.switchScene(FxmlView.SELECCIONARSERVICIOS);
+					
+				}
+				else {
+					stageManager.switchScene(FxmlView.ADMINPARADA);
 				}
 				
 			}

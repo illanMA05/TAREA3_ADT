@@ -2,46 +2,47 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.util.Objects;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
+@Embeddable
 public class Direccion {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String direccion;
+	private Long idEnvio;
+	private String direcciones;
 	private String localidad;
 	
 	//constructores
 	public Direccion(Long id, String direccion, String localidad) {
 		super();
-		this.id = id;
-		this.direccion = direccion;
+		this.idEnvio = id;
+		this.direcciones = direccion;
 		this.localidad = localidad;
 	}
 	
+
+
 	public Direccion() {}
 
 	//getters y setters
 	
 	public Long getId() {
-		return id;
+		return idEnvio;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idEnvio = id;
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return direcciones;
 	}
 
 	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+		this.direcciones = direccion;
 	}
 
 	public String getLocalidad() {
@@ -58,7 +59,7 @@ public class Direccion {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(direccion, id, localidad);
+		return Objects.hash(direcciones, idEnvio, localidad);
 	}
 
 	@Override
@@ -70,13 +71,13 @@ public class Direccion {
 		if (getClass() != obj.getClass())
 			return false;
 		Direccion other = (Direccion) obj;
-		return Objects.equals(direccion, other.direccion) && Objects.equals(id, other.id)
+		return Objects.equals(direcciones, other.direcciones) && Objects.equals(idEnvio, other.idEnvio)
 				&& Objects.equals(localidad, other.localidad);
 	}
 
 	@Override
 	public String toString() {
-		return "Direccion [id=" + id + ", direccion=" + direccion + ", localidad=" + localidad + "]";
+		return "Direccion [id=" + idEnvio + ", direccion=" + direcciones + ", localidad=" + localidad + "]";
 	}
 	
 }

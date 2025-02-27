@@ -24,6 +24,11 @@
 	</properties>
 	
 	<repositories>
+	
+	
+	
+	
+	
 	<repository>
 		<id>objectdb</id>
 		<name>ObjectDB Repository</name>

@@ -2,18 +2,15 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.db4o.ObjectContainer;
-import com.luisdbb.tarea3AD2024base.config.DataConnection;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Paradas;
 import com.luisdbb.tarea3AD2024base.modelo.Servicio;
+import com.luisdbb.tarea3AD2024base.services.Servicios_ConjContraService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
@@ -29,8 +26,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 @Controller
 public class EditarServicioController  implements Initializable{
-	
-	private ObjectContainer db = DataConnection.getInstance();
 	
 	@Lazy
 	@Autowired
@@ -51,9 +46,12 @@ public class EditarServicioController  implements Initializable{
 	@FXML
 	private TableColumn <String, String>clmNombre;
 	
+	@Autowired
+	private Servicios_ConjContraService serConjService;
+	
 	public ObservableList<Servicio> servicios;
 	
-	
+	public static Servicio servicioSeleccionado;
 	@FXML
 	public void clickBtnVolver(ActionEvent event) throws IOException{
 		stageManager.switchScene(FxmlView.ADMIN);
@@ -66,12 +64,9 @@ public class EditarServicioController  implements Initializable{
 		servicios = FXCollections.observableArrayList();
 		
 		this.clmNombre.setCellValueFactory(new PropertyValueFactory<String, String>("Nombre"));
-		this.clmPrecio.setCellValueFactory(new PropertyValueFactory<String, String>("Precio"));
+		this.clmPrecio.setCellValueFactory(new PropertyValueFactory<String, String>("Precio"));	
 		
-		
-		List<Servicio> ser = null;
-		ser = db.query(Servicio.class);
-		for(Servicio s : ser) {
+		for(Servicio s : serConjService.findAllServicios()) {
 			servicios.add(s);
 		}
 		tablaServicios.setItems(servicios);
@@ -88,7 +83,9 @@ public class EditarServicioController  implements Initializable{
 		}
 		else {
 			
+			servicioSeleccionado = s;
 			
+			stageManager.switchScene(FxmlView.EDITARSERVICIOSELECCIONADO);
 		}
 		
 	}

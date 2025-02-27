@@ -36,6 +36,10 @@ public class ParadaService {
 	public Paradas findByResponsable(String nombre) {
 		return paradaRepository.findByResponsable(nombre);
 	}
+	
+	public Paradas findByIdPa(Long id) {
+		return paradaRepository.findByIdPa(id);
+	}
 
 	public Paradas save(Paradas entity) {
 		return paradaRepository.save(entity);

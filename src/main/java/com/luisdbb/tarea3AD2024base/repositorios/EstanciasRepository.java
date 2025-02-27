@@ -12,4 +12,6 @@ import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 public interface EstanciasRepository extends JpaRepository<Estancias,Long>{
 
 	List <Estancias> findByPeregrinoEEquals(Peregrino p);
+	
+	Estancias findByIdE(Long id);
 }

@@ -24,4 +24,8 @@ public class EstanciasService {
 	public List<Estancias> findByIdPere(Peregrino p) {
 		return estanciasRepository.findByPeregrinoEEquals(p);
 	}
+	
+	public Estancias findByIdE(Long id) {
+		return estanciasRepository.findByIdE(id);
+	}
 }

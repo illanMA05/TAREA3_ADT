@@ -21,7 +21,6 @@ import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Paradas;
 import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
-import com.luisdbb.tarea3AD2024base.services.Servicios_ConjContraService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.collections.FXCollections;
@@ -37,23 +36,27 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 @Controller
-public class NuevoServicioController implements Initializable{
-	
+public class EditarServicioSeleccionadoController  implements Initializable{
 	private ObjectContainer db = DataConnection.getInstance();
-
+	
+	@Lazy
+	@Autowired
+	private StageManager stageManager;
+	
 	@FXML
 	private TextField txtNombre;
 	
 	@FXML
 	private TextField txtPrecio;
 	
+	
+	@FXML
+	private Button btnEditar;
+	
 	@FXML
 	private Button btnVolver;
 	
-	@FXML 
-	private Button btnAceptar;
 	
 	@FXML
 	private TableView<Paradas> tablaParadas;
@@ -66,22 +69,17 @@ public class NuevoServicioController implements Initializable{
 	
 	@FXML
 	private TableColumn<String, String>clmRegion;
-	
-	@Autowired
-	private Servicios_ConjContraService serConjService;
-	
-	
-	@Lazy
-	@Autowired
-	private StageManager stageManager;
+
 	
 	@Autowired
 	private ParadaService paradaService;
-
-	public ObservableList <Paradas> paras;
 	
+	public ObservableList<Paradas> paras;
+	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		paras = FXCollections.observableArrayList();
 		tablaParadas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
@@ -93,20 +91,22 @@ public class NuevoServicioController implements Initializable{
 			paras.add(p);
 		}
 		tablaParadas.setItems(paras);
+		Servicio s = 
+		EditarServicioController.servicioSeleccionado;
+		
+		txtNombre.setText(s.getNombre());
+		txtPrecio.setText(String.valueOf(s.getPrecio()));
 		
 		
 	}
 	
 	@FXML
-	public void clickBtnVolver(ActionEvent event) throws IOException {
-		
+	public void clickBtnVolver(ActionEvent event) throws IOException{
 		stageManager.switchScene(FxmlView.ADMIN);
 	}
 	
-	
-	
 	@FXML
-	public void clickBtnAceptar(ActionEvent event) throws IOException{
+	public void clickBtnEditar(ActionEvent event) throws IOException{
 		boolean nombreCorrecto = false;
 		boolean precioCorrecto = false;
 		
@@ -144,36 +144,23 @@ public class NuevoServicioController implements Initializable{
 					idParadas.add(p.getIdPa());
 				}
 				
-				Long id=0L;
-        		List<Servicio> ps2 = serConjService.findAllServicios();
-        		 for (Servicio ter : ps2) {
-        		 id=ter.getId();
-                 }
-        		 	id++;
+				Servicio s1 = EditarServicioController.servicioSeleccionado;
+				s1.setNombre(nombre);
+				s1.setPrecio(Double.parseDouble(precio));
+				s1.setParadas(idParadas);
 				
 				try {
 					
-					if(serConjService.findServiceByNombre(nombre) == false) {
-						
-						Servicio s1 = new Servicio(id, nombre, Double.parseDouble(precio),idParadas);
-						
 						db.store(s1);
 						db.commit();
 						
 						Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
-						mensaje.setTitle("SERVICIO CREADO CORRECTAMENTE");
-						mensaje.setContentText("SERVICIO CREADO CORRECTAMENTE, VOLVIENDO AL MENU...");
+						mensaje.setTitle("SERVICIO EDITADO CORRECTAMENTE");
+						mensaje.setContentText("SERVICIO EDITADO CORRECTAMENTE, VOLVIENDO AL MENU...");
 						mensaje.showAndWait();
 						
 						stageManager.switchScene(FxmlView.ADMIN);
-					}else {
-						
-						Alert mensaje = new Alert(Alert.AlertType.WARNING);
-						mensaje.setTitle("SERVICIO YA EXISTENTE");
-						mensaje.setContentText("YA EXISTE UN SERVICIO CON ESTE NOMBRE, CAMBIELO PARA CONTINUAR");
-						mensaje.showAndWait();
-						
-					}
+					
 						
 					
 					
@@ -195,10 +182,8 @@ public class NuevoServicioController implements Initializable{
 					+ "Y EL NOMBRE SOLO PUEDE CONTENER LETRAS");
 			mensa.showAndWait();
 		}
-		
 	}
-	
-	
+
 	
 	private boolean ValidarPrecio(String precio) {
         String exp = "^([0-9]{1,3}).([0-9]{2}$)";
@@ -206,6 +191,5 @@ public class NuevoServicioController implements Initializable{
         Matcher coincide = patron.matcher(precio);
         return coincide.matches();
     }
-	
 	
 }

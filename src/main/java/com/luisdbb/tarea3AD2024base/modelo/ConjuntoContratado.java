@@ -11,7 +11,7 @@ public class ConjuntoContratado {
 	private char modoPago;
 	private String extra = null;
 	private Long estancia;
-	private List<Long> contratar = new ArrayList<>(0);
+	private List<Long> servicios = new ArrayList<>(0);
 	
 	//constructores
 	public ConjuntoContratado(Long id, double precioTotal, char modoPago, String extra, Long estancia,
@@ -22,9 +22,11 @@ public class ConjuntoContratado {
 		this.modoPago = modoPago;
 		this.extra = extra;
 		this.estancia = estancia;
-		this.contratar = contratar;
+		this.servicios = contratar;
 	}
 	public ConjuntoContratado() {}
+	
+	//getters y setters
 	public Long getId() {
 		return id;
 	}
@@ -56,18 +58,18 @@ public class ConjuntoContratado {
 		this.estancia = estancia;
 	}
 	public List<Long> getContratar() {
-		return contratar;
+		return servicios;
 	}
 	public void setContratar(List<Long> contratar) {
-		this.contratar = contratar;
+		this.servicios = contratar;
 	}
 	
+	
 	//metodos
-	
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(contratar, estancia, extra, id, modoPago, precioTotal);
+		return Objects.hash(servicios, estancia, extra, id, modoPago, precioTotal);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -78,14 +80,14 @@ public class ConjuntoContratado {
 		if (getClass() != obj.getClass())
 			return false;
 		ConjuntoContratado other = (ConjuntoContratado) obj;
-		return Objects.equals(contratar, other.contratar) && Objects.equals(estancia, other.estancia)
+		return Objects.equals(servicios, other.servicios) && Objects.equals(estancia, other.estancia)
 				&& Objects.equals(extra, other.extra) && Objects.equals(id, other.id) && modoPago == other.modoPago
 				&& Double.doubleToLongBits(precioTotal) == Double.doubleToLongBits(other.precioTotal);
 	}
 	@Override
 	public String toString() {
 		return "ConjuntoContratado [id=" + id + ", precioTotal=" + precioTotal + ", modoPago=" + modoPago + ", extra="
-				+ extra + ", estancia=" + estancia + ", contratar=" + contratar + "]";
+				+ extra + ", estancia=" + estancia + ", contratar=" + servicios + "]";
 	}
 	
 	

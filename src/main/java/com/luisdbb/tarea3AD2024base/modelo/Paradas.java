@@ -35,7 +35,7 @@ public class Paradas {
 	private List<Carnet> carnet = new ArrayList<>();
 	
 	
-	@OneToMany(mappedBy="paradaE")
+	@OneToMany(mappedBy="paradaE",fetch = FetchType.EAGER )
 	private List<Estancias> estancias = new ArrayList<>();
 	
 	@OneToOne(mappedBy="parada", cascade=CascadeType.ALL)

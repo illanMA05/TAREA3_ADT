@@ -10,7 +10,7 @@ public class Servicio {
 	private String nombre;
 	private double precio;
 	private List<Long> paradas = new ArrayList<>();
-	private List<Long> contratar = new ArrayList<>(0);
+	private List<Long> conjContratado = new ArrayList<>(0);
 	
 	//cosntructores
 	
@@ -21,7 +21,7 @@ public class Servicio {
 		this.nombre = nombre;
 		this.precio = precio;
 		this.paradas = paradas;
-		this.contratar = contratar;
+		this.conjContratado = contratar;
 	}
 	
 	
@@ -36,6 +36,21 @@ public class Servicio {
 
 
 	public Servicio () {}
+
+	public Servicio(Object id2, String nombre2, Object object, Object paradas2, Object contratar2) {
+
+	}
+
+
+	public Servicio(Long id, String nombre, double precio, List<Long> paradas) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.paradas = paradas;
+	}
+
+
 
 	//settesr y getters
 	public Long getId() {
@@ -71,18 +86,18 @@ public class Servicio {
 	}
 
 	public List<Long> getContratar() {
-		return contratar;
+		return conjContratado;
 	}
 
 	public void setContratar(List<Long> contratar) {
-		this.contratar = contratar;
+		this.conjContratado = contratar;
 	}
 
 	//metodos
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(contratar, id, nombre, paradas, precio);
+		return Objects.hash(conjContratado, id, nombre, paradas, precio);
 	}
 
 	@Override
@@ -94,7 +109,7 @@ public class Servicio {
 		if (getClass() != obj.getClass())
 			return false;
 		Servicio other = (Servicio) obj;
-		return Objects.equals(contratar, other.contratar) && Objects.equals(id, other.id)
+		return Objects.equals(conjContratado, other.conjContratado) && Objects.equals(id, other.id)
 				&& Objects.equals(nombre, other.nombre) && Objects.equals(paradas, other.paradas)
 				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio);
 	}
@@ -102,7 +117,7 @@ public class Servicio {
 	@Override
 	public String toString() {
 		return "Servicio [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", paradas=" + paradas
-				+ ", contratar=" + contratar + "]";
+				+ ", contratar=" + conjContratado + "]";
 	}
 	
 	
