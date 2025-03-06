@@ -3,6 +3,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.http.HttpHeaders;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -20,7 +21,11 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,20 +40,23 @@ import com.luisdbb.tarea3AD2024base.services.PeregrinoParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+
 
 @Controller
+@RestController
+@RequestMapping("/report")
 public class PeregrinoIdentificadoController implements Initializable{
 	
 	@FXML
@@ -59,6 +67,9 @@ public class PeregrinoIdentificadoController implements Initializable{
 	
 	@FXML
 	private Button btnAyuda;
+	
+	@FXML
+	private Button btnInforme;
 	
 	@FXML
 	private Button btnExportarDatos;
@@ -76,6 +87,7 @@ public class PeregrinoIdentificadoController implements Initializable{
 	private PeregrinoService pereService;
 	
 	
+	
 	@Autowired
 	private PeregrinoParadaService ppService;
 	
@@ -83,6 +95,9 @@ public class PeregrinoIdentificadoController implements Initializable{
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
+	
+	
+	
 	
 	@FXML
 	public void clickBtnAyuda(ActionEvent event) throws IOException{

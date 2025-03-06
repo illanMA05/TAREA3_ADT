@@ -56,6 +56,8 @@ public class InicioController implements Initializable{
 	@Autowired
 	private ParadaService paradaService;
 	
+	
+	
 	@Lazy
 	@Autowired
 	private StageManager stageManager;
@@ -151,12 +153,10 @@ public class InicioController implements Initializable{
 			
 		}else {
 			
-			if(usuario.getText().equals(adminNombre) && contrasenia.getText().equals(adminContra)) {
-				stageManager.switchScene(FxmlView.ADMIN);	
-			}
+			
 		
 		
-			else if(credenService.CredencialesExisten(usuario.getText(), contrasenia.getText())) {
+			 if(credenService.CredencialesExisten(usuario.getText(), contrasenia.getText())) {
 			
 			Sesion.sesion = new Sesion(usuario.getText());
 			
@@ -168,6 +168,8 @@ public class InicioController implements Initializable{
 				}
 				 	
 			
+		}else if(usuario.getText().equals(adminNombre) && contrasenia.getText().equals(adminContra)) {
+			stageManager.switchScene(FxmlView.ADMIN);	
 		}
 		
 		else {

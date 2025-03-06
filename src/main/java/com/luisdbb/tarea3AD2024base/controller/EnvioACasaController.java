@@ -66,7 +66,24 @@ public class EnvioACasaController {
 	
 	public void clickBtnAceptar(ActionEvent event) throws IOException
 	{
-		if(ValidarPeso(txtPeso.getText()) && ValidarVolumenes(txtLargo.getText()) && ValidarVolumenes(txtAncho.getText()) && ValidarVolumenes(txtProfundidad.getText()))
+		
+		boolean direccionBien = false;
+		boolean localBien = false;
+		
+		if(txtDireccion.getText().isEmpty() || txtDireccion.getText().isBlank()) direccionBien=true;
+		
+		boolean mal = false;
+		for(int i=0; i>=txtLocalidad.getText().length(); i++) {
+			
+			if(Character.isAlphabetic(txtLocalidad.getText().charAt(i))) {
+				mal = true;
+			}
+			
+		}
+		if(!mal) localBien = true;
+		
+		
+		if( localBien && direccionBien&& ValidarPeso(txtPeso.getText()) && ValidarVolumenes(txtLargo.getText()) && ValidarVolumenes(txtAncho.getText()) && ValidarVolumenes(txtProfundidad.getText()))
 		{
 			
 			 double peso = Double.parseDouble(txtPeso.getText());
@@ -78,10 +95,7 @@ public class EnvioACasaController {
 			 
 			 Paradas p =paradaService.findByResponsable(Sesion.sesion.getUsuario());
 			 
-				
-				
-			
-			 			 
+		 
 				Long id=0L;
         		List<EnvioACasa> ps2 = envioService.findAllEnvios();
         			for (EnvioACasa ter : ps2) {

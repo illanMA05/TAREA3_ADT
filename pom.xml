@@ -89,6 +89,37 @@
 					<artifactId>javafx-web</artifactId>
 					<version>21</version> 
 					</dependency>
+					
+
+<!--<dependency>-->
+<!--    <groupId>net.sf.xmldb-org</groupId>-->
+<!--    <artifactId>xmldb-api</artifactId>-->
+<!--    <version>1.7.0</version>-->
+<!--</dependency>-->
+
+<!--<dependency>-->
+<!--    <groupId>org.exist-db</groupId>-->
+<!--    <artifactId>exist-core</artifactId>-->
+<!--    <version>6.3.0</version>-->
+<!--    <exclusions>-->
+<!--        <exclusion>-->
+<!--            <groupId>xml-apis</groupId>-->
+<!--            <artifactId>xml-apis</artifactId>-->
+<!--        </exclusion>-->
+<!--    </exclusions>-->
+<!--</dependency>-->
+					
+					
+					<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>7.0.1</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
 
 	</dependencies>
 
